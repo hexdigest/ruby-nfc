@@ -7,7 +7,12 @@ Prerequisites
 ------------
 
 * Install libusb first. 
-* Download and install [libnfc](https://code.google.com/p/libnfc/downloads/list). Don't forget to copy some system files from libnfc tarball:
+* Download and install [libnfc](https://code.google.com/p/libnfc/downloads/list). Or if you're using Ubuntu:
+  Enable "Universe" repository and then:
+  ```
+  apt-get install libfreefare-bin
+  ```
+  You may need to copy some system files from libnfc tarball:
 
     ```
     sudo cp ./contrib/linux/blacklist-libnfc.conf /etc/modprobe.d/
