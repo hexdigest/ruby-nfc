@@ -84,3 +84,11 @@ readers[0].poll(IsoDep::Tag, Mifare::Classic::Tag, Mifare::Ultralight::Tag) do |
   end
 end
 ```
+
+Debugging
+---------
+
+To see additional debug info from libnfc run your program as follows:
+```
+LIBNFC_LOG_LEVEL=3 ruby listen.rb
+```
