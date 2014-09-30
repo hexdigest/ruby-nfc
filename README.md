@@ -29,10 +29,11 @@ Prerequisites
     sudo cp ./contrib/linux/blacklist-libnfc.conf /etc/modprobe.d/
     sudo cp ./contrib/udev/42-pn53x.rules /etc/udev/rules.d/
     ```
-* Download and install [libfreefare](https://code.google.com/p/libfreefare/downloads/list)
+* Download and install [libfreefare](https://code.google.com/p/libfreefare/):
   ```
-  # tar xjvf libfreefare-0.4.0.tar.bz2
-  # cd cd libfreefare-0.4.0/
+  # git clone https://code.google.com/p/libfreefare/
+  # cd libfreefare
+  # autoreconf -vis
   # ./configure && make && make install
   ```
   
