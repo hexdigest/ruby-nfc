@@ -45,45 +45,69 @@ Usage
 -----
 
 ```ruby
-p "Library version: %s" % RubyNFC.version
-readers = RubyNFC::Reader.all
-p "Available readers: %s" % readers.to_s
+require 'ruby-nfc'
 
+puts "Library version: %s" % NFC.version
+readers = NFC::Reader.all
+puts "Available readers: %s" % readers.to_s
+
+# The order of tag types in poll arguments defines priority of tag types
 readers[0].poll(IsoDep::Tag, Mifare::Classic::Tag, Mifare::Ultralight::Tag) do |tag|
   begin
-  	p "Tag uid: %s" % tag.uid_hex
+  	puts "Applied #{tag.class.name} with UID #{tag.uid_hex}"
 
-		# This is how you can distinguish different type of tags
-		# and process them separately
-		# Some tags can have several interfaces i.e. PayPass/payWave cards
-		# with mifare chip on board so this case statement also defines priority
-		# of tag types
 		case tag
 		when Mifare::Classic::Tag
   		tag.select do
+  			# Perform authentication to block 0x04 with the Key A that equals 
+  			# to "\xFF\xFF\xFF\xFF\xFF\xFF" you can also use "FFFFFFFFFFFF"
+  			# representation. In this case it will be automatically packed to 6 bytes
   			if auth(4, :key_a, "FFFFFFFFFFFF")
-					p "authenticated!"
-					processed!
+					puts "authenticated!"
+					processed! # mark tag as processed so even if it supports different
+										 # protocol poll method will continue with another physical
+										 # tag
   			end
   		end
   	when Mifare::Ultralight::Tag
   		tag.select do
-  			p "Page 1: %s" % read(1).unpack('H*').pop
+  			puts "Page 1: %s" % read(1).unpack('H*').pop
+  			processed!
   		end
 		when IsoDep::Tag
-			tag.select do
-				# sending APDU command to tag using hex binary format
-				p tag << "\x00\xA4\x04\x00\x06\xF7\x52\x46\x54\x41\x01" 
-				# sending APDU command to tag using hex string format
-				# tag response will be delivered in a same format as an input
-				p tag << 'A00D010018B455CAF0F331AF703EFA2E2D744EC7E22AA64076CD19F6D0'
+			aid = ["F75246544101"].pack('H*')
+			tag.select(aid) do
+				# sending APDU command to tag using send_apdu method
+				apdu = ['A00D010018B455CAF0F331AF703EFA2E2D744EC7E22AA64076CD19F6D0'].pack('H*')
+				puts send_apdu(apdu).unpack('H*').pop
+
+				# sending APDU command with "<<" operator which is alias to send_apdu
+				response = tag << apdu
+				puts response.unpack('H*').pop
 				processed!
 			end
+		when NFC::Tag
+			puts "Unknown NFC tag type"
 		end
   rescue Exception => e
-    p e
+    puts e
   end
 end
+
+```
+
+This example should provide similar output when you apply your tags to NFC-reader:
+```
+Library version: 1.7.1
+Available readers: [acr122_usb:001:009]
+Applied Mifare::Ultralight::Tag with UID 04a42572373080
+Page 1: 72373080
+Applied Mifare::Classic::Tag with UID 25161b49
+authenticated!
+Applied Mifare::Classic::Tag with UID bde74d1d
+authenticated!
+Applied IsoDep::Tag with UID a0d98978
+aeee833d6a26476221290c3e4978290cce67422257aa37fedeca655fe7c67a5636669529e676a7c53fa51b9af3ae62e631b6cbebd4a65228a2fbf9cfe8b860e5efc69000
 ```
 
 Debugging
@@ -93,3 +117,28 @@ To see additional debug info from libnfc run your program as follows:
 ```
 LIBNFC_LOG_LEVEL=3 ruby listen.rb
 ```
+
+License
+-------
+
+The MIT License (MIT)
+
+Copyright (c) 2014 Maxim M. Chechel <maximchick@gmail.com>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
