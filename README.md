@@ -86,8 +86,6 @@ readers[0].poll(IsoDep::Tag, Mifare::Classic::Tag, Mifare::Ultralight::Tag) do |
 				puts response.unpack('H*').pop
 				processed!
 			end
-		when NFC::Tag
-			puts "Unknown NFC tag type"
 		end
   rescue Exception => e
     puts e
