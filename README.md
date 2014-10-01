@@ -41,6 +41,12 @@ Prerequisites
 * Install appropriate driver for your NFC reader (if required)
 * If your reader is plugged in unplug it and plug it again. If you run example below and get "Device or resource busy" error then you need to reboot your system before you can continue.
 
+Installation
+------------
+```
+gem install ruby-nfc
+```
+
 Usage
 -----
 
