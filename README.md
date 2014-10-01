@@ -52,9 +52,9 @@ readers = NFC::Reader.all
 puts "Available readers: %s" % readers.to_s
 
 # The order of tag types in poll arguments defines priority of tag types
-readers[0].poll(IsoDep::Tag, Mifare::Classic::Tag, Mifare::Ultralight::Tag) do |tag|
+readers[0].poll(IsoDep::Tag, Mifare::Classic::Tag, Mifare::Ultralight::Tag, NFC::Tag) do |tag|
   begin
-  	puts "Applied #{tag.class.name} with UID #{tag.uid_hex}"
+  	puts "Applied #{tag.class.name}: #{tag}"
 
 		case tag
 		when Mifare::Classic::Tag
@@ -82,8 +82,8 @@ readers[0].poll(IsoDep::Tag, Mifare::Classic::Tag, Mifare::Ultralight::Tag) do |
 				puts send_apdu(apdu).unpack('H*').pop
 
 				# sending APDU command with "<<" operator which is alias to send_apdu
-				response = tag << apdu
-				puts response.unpack('H*').pop
+				# response = tag << apdu
+				# puts response.unpack('H*').pop
 				processed!
 			end
 		end
@@ -98,14 +98,18 @@ This example should provide similar output when you apply your tags to NFC-reade
 ```
 Library version: 1.7.1
 Available readers: [acr122_usb:001:009]
-Applied Mifare::Ultralight::Tag with UID 04a42572373080
+Applied Mifare::Classic::Tag: bde74d1d Mifare Classic 4k SAK: 0x18
+authenticated!
+Applied Mifare::Classic::Tag: 25161b49 Infineon Mifare Classic 1k SAK: 0x88
+authenticated!
+Applied Mifare::Ultralight::Tag: 04a42572373080 Mifare UltraLight SAK: 0x0
 Page 1: 72373080
-Applied Mifare::Classic::Tag with UID 25161b49
-authenticated!
-Applied Mifare::Classic::Tag with UID bde74d1d
-authenticated!
-Applied IsoDep::Tag with UID a0d98978
+Applied IsoDep::Tag: a0d98978
 aeee833d6a26476221290c3e4978290cce67422257aa37fedeca655fe7c67a5636669529e676a7c53fa51b9af3ae62e631b6cbebd4a65228a2fbf9cfe8b860e5efc69000
+Applied Mifare::Ultralight::Tag: 04ffc68aaa2b80 Mifare UltraLight SAK: 0x0
+Page 1: 8aaa2b80
+Applied IsoDep::Tag: 087a1ae3
+Application not found: f75246544101
 ```
 
 Debugging
