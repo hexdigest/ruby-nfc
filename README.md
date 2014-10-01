@@ -1,7 +1,11 @@
-ruby-nfc
+About ruby-nfc
 ========
 
-NFC library for Ruby programming language
+This gem brings some NFC functionality for Ruby programming language.
+It allows to:
+* Read and modify contents of Mifare tags
+* Send APDU commands to Android HCE or Blackberry VTE devices
+* Communicate with dual-interface smart cards like Master Card PayPass or Visa payWave cards
 
 Prerequisites
 ------------
