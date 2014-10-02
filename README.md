@@ -44,6 +44,7 @@ Prerequisites
 * Look at lsusb output and make sure that your reader is present in 42-pn53x.rules
 * Install appropriate driver for your NFC reader (if required)
 * If your reader is plugged in unplug it and plug it again. If you run example below and get "Device or resource busy" error then you need to reboot your system before you can continue.
+* If you getting "Unable to claim USB interface (Operation not permitted)" error then changing MODE from 0664 to 0666 in 42-pn53x.rules may help
 
 Installation
 ------------
