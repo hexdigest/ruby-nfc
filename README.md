@@ -74,9 +74,8 @@ readers[0].poll(IsoDep::Tag, Mifare::Classic::Tag, Mifare::Ultralight::Tag) do |
   			# representation. In this case it will be automatically packed to 6 bytes
   			if auth(4, :key_a, "FFFFFFFFFFFF")
 					puts "authenticated!"
-					processed! # mark tag as processed so even if it supports different
-										 # protocol poll method will continue with another physical
-										 # tag
+					processed!	# mark tag as processed so even if it supports different
+							# protocol poll method will continue with another physical tag
   			end
   		end
   	when Mifare::Ultralight::Tag
