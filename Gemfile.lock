@@ -2,9 +2,11 @@ GEM
   remote: https://rubygems.org/
   specs:
     ffi (1.9.3)
+    minitest (5.4.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   ffi
+  minitest

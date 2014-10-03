@@ -30,6 +30,7 @@ Gem::Specification.new do |s|
   s.requirements << 'libfreefare'
 
   s.add_runtime_dependency 'ffi'
+  s.add_development_dependency 'minitest'
 
   s.post_install_message = [
   	"Don't forget to install libnfc and libfreefare",

@@ -1,4 +1,6 @@
 module APDU 
+  class Error < ::Exception; end
+
 	class Errno < ::Exception
 		STATUS_STRINGS = {
 			#0x6XXX => "Transmission protocol related codes                                                                          
