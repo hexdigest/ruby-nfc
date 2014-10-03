@@ -39,6 +39,18 @@ class PostTest < MiniTest::Unit::TestCase
     request_helper(request)
   end
 
+  def test_to_s_method
+    apdu = "0102030405DEADBEEFAA06"
+    request = APDU::Request.from_hex_string(apdu)
+    assert_equal "\x01\x02\x03\x04\x05\xDE\xAD\xBE\xEF\xAA\x06", request.build
+  end
+
+  def test_build_method
+    apdu = "0102030405DEADBEEFAA06"
+    request = APDU::Request.from_hex_string(apdu)
+    assert_equal "0102030405DEADBEEFAA06", request.to_s
+  end
+
   def request_helper(request)
     assert_equal 1, request.cla
     assert_equal 2, request.ins
@@ -48,4 +60,5 @@ class PostTest < MiniTest::Unit::TestCase
     assert_equal 6, request.le
     assert_equal "\xDE\xAD\xBE\xEF\xAA", request.data
   end
+
 end
