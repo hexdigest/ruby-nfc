@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'ruby-nfc/apdu/request'
 
-class PostTest < MiniTest::Unit::TestCase
+class APDURequestTest < MiniTest::Unit::TestCase
   def test_raise_apdu_error_if_length_too_small
     e = assert_raises(APDU::Error) {APDU::Request.from_string("123")}
     assert_match e.message, /too short/

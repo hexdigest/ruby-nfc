@@ -51,7 +51,7 @@ module Mifare
 		end
 
 		# frees memory allocated for mifare tag
-		def deselect
+		def disconnect
 			Mifare.freefare_free_tag(@pointer)
 		end
 

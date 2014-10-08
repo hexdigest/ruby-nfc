@@ -40,18 +40,18 @@ module Mifare
       	@auth_block = nil #last authenticated block
       end
 
-      def select(&block)
+      def connect(&block)
       	@reader.set_flag(:NP_AUTO_ISO14443_4, false)
 
         res = Mifare.mifare_classic_connect(@pointer)
         if 0 == res 
 					super
 				else
-					raise Mifare::Error, "Can't select tag: #{res}"
+					raise Mifare::Error, "Can't connect tag: #{res}"
         end
       end
 
-      def deselect
+      def disconnect
 				Mifare.mifare_classic_disconnect(@pointer)
 				super
       end

@@ -21,7 +21,10 @@ Gem::Specification.new do |s|
 		"./lib/ruby-nfc/tags/isodep.rb",
 		"./lib/ruby-nfc/tags/tag.rb",
 		"./lib/ruby-nfc/reader.rb",
-		"./lib/ruby-nfc/libnfc.rb"
+		"./lib/ruby-nfc/libnfc.rb",
+		"./lib/ruby-nfc/apdu/apdu.rb",
+		"./lib/ruby-nfc/apdu/request.rb",
+		"./lib/ruby-nfc/apdu/response.rb"
   ]
 
   s.homepage    = 'https://github.com/maximchick/ruby-nfc'

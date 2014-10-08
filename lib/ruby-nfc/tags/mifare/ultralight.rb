@@ -14,18 +14,18 @@ module Mifare
 
   module Ultralight
     class Tag < Mifare::Tag
-      def select(&block)
+      def connect(&block)
       	@reader.set_flag(:NP_AUTO_ISO14443_4, false)
 
         res = Mifare.mifare_ultralight_connect(@pointer)
         if 0 == res 
 					super
 				else
-					raise Mifare::Error, "Can't select tag: #{res}"
+					raise Mifare::Error, "Can't connect to tag: #{res}"
         end
       end
 
-      def deselect
+      def disconnect
 				Mifare.mifare_ultralight_disconnect(@pointer)
 				super
       end

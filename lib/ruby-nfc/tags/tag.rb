@@ -6,12 +6,12 @@ module NFC
 			@processed = false
 		end
 
-		def select(&block)
+		def connect(&block)
 			if block_given?
 				begin
 					self.instance_eval(&block)
 				ensure
-					deselect
+					disconnect
 				end
 			end
 		end
@@ -23,6 +23,8 @@ module NFC
 		def processed?
 			@target.processed?
 		end
+
+		def disconnect; end
 
 		def uid
 			uid_size = @target[:nti][:nai][:szUidLen]

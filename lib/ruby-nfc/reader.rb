@@ -26,7 +26,7 @@ module NFC
       end
     end
 
-    def poll(*card_types)
+    def poll(*card_types, &block)
     	connect
 
 			LibNFC.nfc_initiator_init(@ptr) # we'll be initiator not a target
@@ -57,7 +57,7 @@ module NFC
 					card_types.each do |card_type|
 						if card_type.match?(target)
 							tag = card_type.new(target, self)
-							yield tag
+							tag.connect(&block)
 							# if this tag was marked as processed - continue with next tag
 							break if target.processed?
 						end
