@@ -38,7 +38,7 @@ module APDU
 		end
 
 		def to_s
-			@response.unpack('H*').pop
+			@response.unpack('H*').pop.upcase
 		end
 
 		def [](index)

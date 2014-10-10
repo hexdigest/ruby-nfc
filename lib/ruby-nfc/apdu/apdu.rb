@@ -86,7 +86,7 @@ module APDU
 			@code = sw
 			message = STATUS_STRINGS[sw] || "Unknown error"
 
-			super("#{sw.to_s(16)} #{message}")
+			super("#{sw.to_s(16).upcase} #{message}")
 		end
 	end
 end

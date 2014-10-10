@@ -1,4 +1,7 @@
 require 'ruby-nfc'
+require 'logger'
+
+logger = Logger.new(STDOUT)
 
 puts "Library version: %s" % NFC.version
 readers = NFC::Reader.all
@@ -24,10 +27,10 @@ readers[0].poll(IsoDep::Tag, Mifare::Classic::Tag, Mifare::Ultralight::Tag) do |
 			puts "Page 1: %s" % read(1).unpack('H*').pop
 			processed!
 		when IsoDep::Tag
-			select ["F75246544101"].pack('H*')
+			select! ["F75246544101"].pack('H*')
 			# sending APDU command to tag using send_apdu method
 			apdu = ['A00D010018B455CAF0F331AF703EFA2E2D744EC7E22AA64076CD19F6D0'].pack('H*')
-			puts send_apdu(apdu).unpack('H*').pop
+			puts send_apdu(apdu)
 
 			# sending APDU command with "<<" operator which is alias to send_apdu
 			# response = tag << apdu
@@ -35,6 +38,6 @@ readers[0].poll(IsoDep::Tag, Mifare::Classic::Tag, Mifare::Ultralight::Tag) do |
 			processed!
 		end
   rescue Exception => e
-    puts e
+    logger.debug e
   end
 end

@@ -35,12 +35,6 @@ module IsoDep
 			)
 
 			if res > 0
-				# trying to select applet if applet identifier was given
-				if aid
-					sw = send_apdu("\x00\xA4\x04\x00#{aid.size.chr}#{aid}")
-					raise IsoDep::Error, "Application not found: #{aid.unpack('H*').pop}" unless "\x90\x00" == sw
-				end
-
 				super(&block)
 			else
 				raise IsoDep::Error, "Can't select tag: #{res}"
@@ -49,6 +43,26 @@ module IsoDep
 
     def disconnect
 			0 == LibNFC.nfc_initiator_deselect_target(@reader.ptr)
+    end
+
+		# Public: select application with give AID
+		#
+		# aid - Identifier of the application that should be selected
+		#
+		# Returns APDU::Response
+    def select(aid)
+			send_apdu("\x00\xA4\x04\x00#{aid.size.chr}#{aid}")
+    end
+
+		# Public: same as select but raises an APDU::Errno exception if
+		# application not present on the card or SW is not equal to 0x9000
+		#
+		# aid - Identifier of the application that should be selected
+		#
+		# Returns APDU::Response
+		# Raises APDU::Errno
+    def select!(aid)
+    	select(aid).raise_errno!
     end
 
 		# Public: Select application with given AID (Application Identifier)
@@ -82,7 +96,7 @@ module IsoDep
 
 			raise IsoDep::Error, "APDU sending failed: #{res_len}" if res_len < 0
 
-			APDU::Response.from_string(response_buffer.get_bytes(0, res_len).to_s)
+			APDU::Response.new(response_buffer.get_bytes(0, res_len).to_s)
     end
 
 		# Public: Send APDU command to tag and raises APDU::Errno exception
