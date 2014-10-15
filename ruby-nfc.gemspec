@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'ruby-nfc'
-  s.version     = '1.0.0'
+  s.version     = '1.1.0'
   s.date        = '2014-10-01'
   s.summary     = "Provides NFC functionality for Ruby"
   s.description = <<-EOF
@@ -24,7 +24,8 @@ Gem::Specification.new do |s|
 		"./lib/ruby-nfc/libnfc.rb",
 		"./lib/ruby-nfc/apdu/apdu.rb",
 		"./lib/ruby-nfc/apdu/request.rb",
-		"./lib/ruby-nfc/apdu/response.rb"
+		"./lib/ruby-nfc/apdu/response.rb",
+		"./LICENSE"
   ]
 
   s.homepage    = 'https://github.com/maximchick/ruby-nfc'
@@ -35,9 +36,9 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'ffi'
   s.add_development_dependency 'minitest'
 
-  s.post_install_message = [
-  	"Don't forget to install libnfc and libfreefare",
-  	"see installation instructions here: ",
-  	"	 https://github.com/maximchick/ruby-nfc"
-	].join("\n")
+  s.post_install_message = <<-EOS
+  	Don't forget to install libnfc and libfreefare
+  	see installation instructions here: 
+  	https://github.com/maximchick/ruby-nfc
+	EOS
 end
