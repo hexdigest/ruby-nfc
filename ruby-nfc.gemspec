@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'ruby-nfc'
-  s.version     = '1.1.0'
-  s.date        = '2014-10-01'
+  s.version     = '1.2'
+  s.date        = '2015-11-23'
   s.summary     = "Provides NFC functionality for Ruby"
   s.description = <<-EOF
   	This gem is built on top of libnfc and libfreefare using ffi and supports:
@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
 	EOF
 
   s.authors     = ["Maxim Chechel"]
-  s.email       = 'maximchick@gmail.com'
+  s.email       = 'hexdigest@gmail.com'
   s.files       = [
 		"./lib/ruby-nfc.rb",
 		"./lib/ruby-nfc/nfc.rb",
@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
 		"./LICENSE"
   ]
 
-  s.homepage    = 'https://github.com/maximchick/ruby-nfc'
+  s.homepage    = 'https://github.com/hexdigest/ruby-nfc'
   s.license       = 'MIT'
   s.requirements << 'libnfc, v1.7.x'
   s.requirements << 'libfreefare'
@@ -39,6 +39,6 @@ Gem::Specification.new do |s|
   s.post_install_message = <<-EOS
   	Don't forget to install libnfc and libfreefare
   	see installation instructions here: 
-  	https://github.com/maximchick/ruby-nfc
+  	https://github.com/hexdigest/ruby-nfc
 	EOS
 end

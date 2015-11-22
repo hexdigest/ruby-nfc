@@ -24,6 +24,21 @@ module NFC
 			@target.processed?
 		end
 
+    def present?
+      modulation = LibNFC::Modulation.new
+			modulation[:nmt] = :NMT_ISO14443A 
+			modulation[:nbr] = :NBR_106
+
+      ptr = FFI::MemoryPointer.new(:char, @target[:nti][:nai][:szUidLen])
+      ptr.put_bytes(0, uid)
+
+	    res = LibNFC.nfc_initiator_select_passive_target(@reader.ptr, modulation, ptr,
+	                                                     @target[:nti][:nai][:szUidLen],
+	                                                     FFI::Pointer::NULL)
+
+	    return res >= 1
+    end
+
 		def disconnect; end
 
 		def uid
