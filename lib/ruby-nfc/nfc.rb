@@ -19,6 +19,7 @@ module NFC
       LibNFC.nfc_init(ptr)
       @@context = ptr.read_pointer
     end
+    @@context
   end
 
   def self.logger
