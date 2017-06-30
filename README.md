@@ -23,19 +23,15 @@ Prerequisites
   # make && make install
   ```
   
-  Or if you're using Ubuntu Utopic Unicorn or a higher version еnable "Universe" repository and then run:
-  ```
-  sudo apt-get install libfreefare-bin
-  ```
-  You may need to copy some system files from libnfc tarball anyway:
+  You *may* need to copy some system files from libnfc tarball:
 
     ```
     sudo cp ./contrib/linux/blacklist-libnfc.conf /etc/modprobe.d/
     sudo cp ./contrib/udev/42-pn53x.rules /etc/udev/rules.d/
     ```
-* Download and install [libfreefare](https://code.google.com/p/libfreefare/):
+* Download and install [libfreefare](https://github.com/nfc-tools/libfreefare):
   ```
-  # git clone https://code.google.com/p/libfreefare/
+  # git clone https://github.com/nfc-tools/libfreefare.git
   # cd libfreefare
   # autoreconf -vis
   # ./configure && make && make install
