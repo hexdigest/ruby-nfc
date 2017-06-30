@@ -21,7 +21,7 @@ module Mifare
 	}
 
   # common freefare functions prototypes
-	attach_function :freefare_tag_new, [:pointer, LibNFC::ISO14443a.by_value], :pointer
+	attach_function :freefare_tag_new, [:pointer, LibNFC::Target.by_value], :pointer
 	attach_function :freefare_free_tag, [:pointer], :void
 
   # tag
@@ -37,7 +37,7 @@ module Mifare
 		def initialize(target, reader)
 			super(target, reader)
 
-			@pointer = Mifare.freefare_tag_new(reader.ptr, target[:nti][:nai])
+			@pointer = Mifare.freefare_tag_new(reader.ptr, target)
 
 			raise Mifare::Error, "Unknown mifare tag" if @pointer.null?
 		end
