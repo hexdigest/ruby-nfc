@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'ruby-nfc'
-  s.version     = '1.2'
-  s.date        = '2015-11-23'
+  s.version     = '1.5'
+  s.date        = '2017-07-06'
   s.summary     = "Provides NFC functionality for Ruby"
   s.description = <<-EOF
   	This gem is built on top of libnfc and libfreefare using ffi and supports:
@@ -33,8 +33,8 @@ Gem::Specification.new do |s|
   s.requirements << 'libnfc, v1.7.x'
   s.requirements << 'libfreefare'
 
-  s.add_runtime_dependency 'ffi'
-  s.add_development_dependency 'minitest'
+  s.add_runtime_dependency 'ffi', '~> 1'
+  s.add_development_dependency 'minitest', '~> 0'
 
   s.post_install_message = <<-EOS
   	Don't forget to install libnfc and libfreefare
