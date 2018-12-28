@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'ruby-nfc'
-  s.version     = '1.5'
-  s.date        = '2017-07-06'
+  s.version     = '1.6'
+  s.date        = '2018-12-28'
   s.summary     = "Provides NFC functionality for Ruby"
   s.description = <<-EOF
   	This gem is built on top of libnfc and libfreefare using ffi and supports:
